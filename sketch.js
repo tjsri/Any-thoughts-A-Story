@@ -37,6 +37,8 @@ function windowResized() {
   homeButton.position(windowWidth - 100, 25);
 }
 
+// ... (keep all your global variables, preload, and setup as they are)
+
 function draw() {
   background("#f5f5dc");
   let scaleVal = max(windowWidth / video.width, windowHeight / video.height);
@@ -72,6 +74,78 @@ function draw() {
     }
   }
 }
+
+// --- UPDATED SPAWN LOGIC FOR LOOPING ---
+function spawnLetters(x, y) {
+  // Check if we are at the end of the story
+  if (currentCharIndex >= story.length) {
+    currentCharIndex = 0; // Reset to the start of the string
+  }
+
+  if (y > 80) {
+    let char = story.charAt(currentCharIndex);
+    letters.push(new SpiralLetter(x, y, char));
+    currentCharIndex++;
+  }
+}
+
+function setupUI() {
+  const buttonStyle = (btn) => {
+    btn.style('background-color', '#fff');
+    btn.style('color', '#D50000');
+    btn.style('border', '2px solid #D50000');
+    btn.style('padding', '8px 18px');
+    btn.style('border-radius', '25px');
+    btn.style('font-family', 'Helvetica');
+    btn.style('font-weight', 'bold');
+    btn.style('cursor', 'pointer');
+    btn.style('transition', '0.2s');
+    btn.mouseOver(() => { btn.style('background-color', '#D50000'); btn.style('color', '#fff'); });
+    btn.mouseOut(() => { btn.style('background-color', '#fff'); btn.style('color', '#D50000'); });
+  };
+
+  sizeLabel = createDiv('How Loud?');
+  sizeLabel.position(30, 28);
+  styleLabel(sizeLabel);
+  sizeSlider = createSlider(10, 100, 40, 1);
+  sizeSlider.position(120, 32);
+  sizeSlider.style('width', '100px');
+  sizeSlider.style('accent-color', '#D50000');
+
+  weightLabel = createDiv('How Heavy?');
+  weightLabel.position(240, 28);
+  styleLabel(weightLabel);
+  weightSlider = createSlider(0, 6, 1, 1);
+  weightSlider.position(340, 32);
+  weightSlider.style('width', '100px');
+  weightSlider.style('accent-color', '#D50000');
+
+  flyButton = createButton('RELEASE THOUGHTS');
+  flyButton.position(470, 25);
+  buttonStyle(flyButton);
+  flyButton.mousePressed(triggerFly);
+
+  saveButton = createButton('SAVE');
+  saveButton.position(670, 25);
+  buttonStyle(saveButton);
+  saveButton.mousePressed(saveAsImage);
+
+  // --- HOME BUTTON ---
+  homeButton = createButton('READ A STORY');
+  // Positioned with an offset from the right edge
+  homeButton.position(windowWidth - 160, 25); 
+  buttonStyle(homeButton);
+  homeButton.mousePressed(() => {
+    window.location.href = "https://tjsri.github.io/A-Story/";
+  });
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  homeButton.position(windowWidth - 160, 25);
+}
+
+// ... (keep SpiralLetter class and other helper functions exactly as they were)
 
 function spawnLetters(x, y) {
   if (y > 80 && currentCharIndex < story.length) {
