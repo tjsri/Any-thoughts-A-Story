@@ -169,12 +169,12 @@ function setupUI() {
   });
 
   // ── Mute button — bottom center, small ───────────────────────────────────
-  muteButton = createButton('🔇 SOUND OFF');
-  muteButton.position(windowWidth / 2 - 50, windowHeight - 44);
+// ── Mute button — bottom left corner ───────────────────────────────────
+  muteButton = createButton('🔊 SOUND ON');
   muteButton.style('position', 'fixed');
   muteButton.style('bottom', '16px');
-  muteButton.style('left', '50%');
-  muteButton.style('transform', 'translateX(-50%)');
+  muteButton.style('left', '20px'); // Moved from 50% to 20px
+  muteButton.style('transform', 'none'); // Removed the centering transform
   muteButton.style('background-color', 'rgba(255,255,255,0.75)');
   muteButton.style('color', '#920000');
   muteButton.style('border', '1.5px solid #D50000');
@@ -183,11 +183,9 @@ function setupUI() {
   muteButton.style('font-family', 'Helvetica');
   muteButton.style('font-weight', 'bold');
   muteButton.style('font-size', '11px');
-  muteButton.style('letter-spacing', '0.5px');
   muteButton.style('cursor', 'pointer');
   muteButton.style('backdrop-filter', 'blur(4px)');
-  muteButton.style('z-index', '9998');
-  muteButton.style('transition', '0.2s');
+  muteButton.style('z-index', '9999');
   muteButton.mousePressed(toggleMute);
 }
 
