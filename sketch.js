@@ -74,10 +74,10 @@ function draw() {
   filter(THRESHOLD, thresholdVal);
 
   // --- STARTUP INSTRUCTION TEXT ---
-  if (millis() < 5000) {
+  if (millis() < 8000) {
     push();
     textAlign(CENTER, CENTER);
-    textSize(32);
+    textSize(25);
     fill(213, 0, 0);
     noStroke();
     textStyle(BOLD);
